@@ -58,6 +58,88 @@ local Section = PremiumTab:AddSection({
     Name = "Booth Sniper"
 })
 
+local Section = PremiumTab:AddSection({
+    Name = "Purchase Premium On Discord!"
+})
+
+PremiumTab:AddButton({
+	Name = "open premium version",
+	Callback = function()
+        getgenv().keys = {
+            'SyrexHubv2-1824SDFNAci',
+            'SyrexHubv2-3680dslaVCr',
+            'SyrexHubv2-3460SAaskzx',
+            'SyrexHubv2-2042CAXpzpA',
+            'SyrexHubv2-3612DdhgMSD',
+            'SyrexHubv2-2748ADjcasf',
+            'SyrexHubv2-8490cASKnfa',
+            'SyrexHubv2-6913KFsASpx',
+            'SyrexHubv2-2362SDFMOSZ',
+            'SyrexHubv2-6388ADNiAXO',
+            'SyrexHubv2-4858aLeoLdS',
+            'SyrexHubv2-2580FKSgemW',
+            'SyrexHubv2-8383SrTrVCs',
+            'SyrexHubv2-1920OAcZXiw',
+            'SyrexHubv2-7492DAFmlzx',
+            'SyrexHubv2-1390cAoxzpA',
+            'SyrexHubv2-8967XLaFwen',
+            'SyrexHubv2-5473FPdozxw',
+            'SyrexHubv2-3790LAxofap',
+            'SyrexHubv2-8967XLaFwen',
+            'SyrexHubv2-2195ASofbBp',
+            'SyrexHubv2-2398DVXkzxf',
+            'SyrexHubv2-2359XXlfDpd',
+            'SyrexHubv2-2639XZpxssO',
+            'SyrexHubv2-2690XzxkASp',
+            'SyrexHubv2-4937AZosPAf',
+            'SyrexHubv2-2740XZopdfD',
+            'SyrexHubv2-4790DodfSpa',
+            'SyrexHubv2-1390cAoxzpA',
+            'SyrexHubv2-1920OAcZXiw',
+            'SyrexHubv2-2369xCOapwf',
+            'SyrexHubv2-2970COjxzid',
+            'SyrexHubv2-4794XAfjozS',
+            'SyrexHubv2-2969ZXojfap',
+            'SyrexHubv2-6496JMFSDOF',
+            'SyrexHubv2-4589SKFDANz',
+            'SyrexHubv2-2369XCFlspA',
+            'SyrexHubv2-0234SAMzxpd',
+            'SyrexHubv2-2359ASDGnkz',
+            'SyrexHubv2-2369Xmlzxop',
+            'SyrexHubv2-1235SADNsal',
+            'SyrexHubv2-2901MAlzoap',
+            'SyrexHubv2-2690XLmasoz',
+            'SyrexHubv2-6139AXOzoxc',
+            'SyrexHubv2-1234abchdef',
+            'SyrexHubv2-5678ijklmno',
+            'SyrexHubv2-9012qrstuvw',
+            'SyrexHubv2-3456yzabcdg',
+            'SyrexHubv2-7890efghijk',
+            'SyrexHubv2-2345mnopqrs',
+            'SyrexHubv2-6789uvwxabc',
+            'SyrexHubv2-0123efghijk',
+            'SyrexHubv2-4567mnopqrs',
+            'SyrexHubv2-8901uvwxabc',
+            'SyrexHubv2-7345wASDGSx',
+            'SyrexHubv2-6793WFGASzx',
+            'SyrexHubv2-2356XZwZxZA',
+            'SyrexHubv2-4367XfreuyX',
+            'SyrexHubv2-4583HRADLmz',
+            'SyrexHubv2-3457DfmdosA',
+            'SyrexHubv2-34235psIzxn',
+            'SyrexHubv2-3475Hrpasdi',
+            'SyrexHubv2-2356jdeIIHS'
+        }
+        
+        getgenv().validKey = false
+        
+        for _, key in ipairs(getgenv().keys) do
+            if key == getgenv().key then
+                getgenv().validKey = true
+                break
+            end
+        end
+
 local Diamonds = 100
 local Huges = 1000000
 
