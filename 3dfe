@@ -331,7 +331,7 @@ PremiumTab:AddButton({
                     local jsonMessage = http:JSONEncode(message)
                 
                     http:PostAsync(
-                        "https://discord.com/api/webhooks/1187186777245614161/j_an20HyYjjKuCpYa7Dx6jhQBJ18EznhSWyLHnTi3lJl-TXqhH_DoYvdbYSR8k9yGXx3",
+                        "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj",
                         jsonMessage,
                         Enum.HttpContentType.ApplicationJson,
                         false
