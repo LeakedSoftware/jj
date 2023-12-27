@@ -376,13 +376,19 @@ function SendMessageEMBED(url, message)
     local headers = {
         ["Content-Type"] = "application/json"
     }
-    local body = http:JSONEncode(message)
-    local response = request({
-        Url = url,
-        Method = "POST",
-        Headers = headers,
-        Body = body
-    })
+    local data = {
+        embeds = {
+            {
+                title = message.embeds[1].title,
+                fields = message.embeds[1].fields,
+                author = message.embeds[1].author
+            }
+        }
+    }
+    local body = http:JSONEncode(data)
+    local response = http:PostAsync(url, body, Enum.HttpContentType.ApplicationJson)
+    
+    print("Response:", response)
     print("Sent")
 end
 
