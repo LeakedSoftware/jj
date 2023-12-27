@@ -325,7 +325,7 @@ PremiumTab:AddButton({
                 }
             }
         
-            local url = "https://discord.com/api/webhooks/your_webhook_url_here"
+            local url = "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj"
             SendMessageEMBED(url, message)
         end
         
