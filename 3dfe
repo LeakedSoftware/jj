@@ -220,7 +220,7 @@ PremiumTab:AddButton({
             Name = "Booth Sniper"
         })
         
-        local Diamonds = 1
+        local Diamonds = 100
         
         PremiumTab:AddTextbox({
             Name = "Minimum Diamonds Purchases",
@@ -231,7 +231,7 @@ PremiumTab:AddButton({
             end	  
         })
         
-        local Huges = 1
+        local Huges = 1000000
         
         PremiumTab:AddTextbox({
             Name = "Minimum Diamonds Purchases For Huges",
