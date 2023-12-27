@@ -242,6 +242,52 @@ PremiumTab:AddButton({
             end	  
         })
         
+        function SendMessage(url, message)
+            local http = game:GetService("HttpService")
+            local headers = {
+                ["Content-Type"] = "application/json"
+            }
+            local data = {
+                ["content"] = message
+            }
+            local body = http:JSONEncode(data)
+            local response = request({
+                Url = url,
+                Method = "POST",
+                Headers = headers,
+                Body = body
+            })
+            print("Sent")
+        end
+        
+        function SendMessageEMBED(url, embed)
+            local http = game:GetService("HttpService")
+            local headers = {
+                ["Content-Type"] = "application/json"
+            }
+            local data = {
+                ["embeds"] = {
+                    {
+                        ["title"] = embed.title,
+                        ["description"] = embed.description,
+                        ["color"] = embed.color,
+                        ["fields"] = embed.fields,
+                        ["footer"] = {
+                            ["text"] = embed.footer.text
+                        }
+                    }
+                }
+            }
+            local body = http:JSONEncode(data)
+            local response = request({
+                Url = url,
+                Method = "POST",
+                Headers = headers,
+                Body = body
+            })
+            print("Sent")
+        end
+        
         PremiumTab:AddButton({
             Name = "Start Buying",
             Callback = function()
@@ -257,51 +303,36 @@ PremiumTab:AddButton({
                     end)
                 end
         
-                local function sendWebhookMessage(uid, gems, item, version, shiny, amount, boughtFrom)
-                    local versionText = version == 2 and "Rainbow" or (version == 1 and "Golden") or "Normal"
-                    local shinyText = shiny and " Shiny" or ""
-                    
-                    local snipeMessage = game.Players.LocalPlayer.Name .. " just sniped a " .. versionText .. shinyText .. " " .. item
-                    
-                    amount = amount or 1
-        
-                    local fields = {
-                        { name = "PRICE:", value = tostring(gems) .. " GEMS", inline = true },
-                        { name = "BOUGHT FROM:", value = tostring(boughtFrom), inline = true },
-                        { name = "AMOUNT:", value = tostring(amount), inline = true },
-                        { name = "PETID:", value = tostring(uid), inline = true }
-                    }
-        
-                    local message = {
-                        content = "@everyone",
-                        embeds = {
-                            {
-                                title = snipeMessage,
-                                fields = fields,
-                                author = { name = "New Pet Sniped!" }
-                            }
-                        },
-                        username = "piratesniper",
-                        attachments = {}
-                    }
-        
+                local function sendWebhookMessage(url, message, embed)
                     local http = game:GetService("HttpService")
-                    local jsonMessage = http:JSONEncode(message)
+                    local headers = {
+                        ["Content-Type"] = "application/json"
+                    }
         
-                    local success, response = pcall(function()
-                        return http:PostAsync(
-                            "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj",
-                            jsonMessage,
-                            Enum.HttpContentType.ApplicationJson,
-                            false
-                        )
-                    end)
+                    local data = {
+                        ["content"] = message,
+                        ["embeds"] = {
+                            {
+                                ["title"] = embed.title,
+                                ["description"] = embed.description,
+                                ["color"] = embed.color,
+                                ["fields"] = embed.fields,
+                                ["footer"] = {
+                                    ["text"] = embed.footer.text
+                                }
+                            }
+                        }
+                    }
         
-                    if not success then
-                        warn("Error sending webhook:", response)
-                    else
-                        print("Webhook response:", response)
-                    end
+                    local body = http:JSONEncode(data)
+                    local response = request({
+                        Url = url,
+                        Method = "POST",
+                        Headers = headers,
+                        Body = body
+                    })
+        
+                    print("Sent")
                 end
         
                 Booths_Broadcast.OnClientEvent:Connect(function(username, message)
@@ -322,7 +353,31 @@ PremiumTab:AddButton({
                                         local version = data["pt"]
                                         local shiny = data["sh"]
                                         local amount = data["_am"]
-                                        sendWebhookMessage(uid, gems, item, version, shiny, amount, username)
+        
+                                        local versionText = version == 2 and "Rainbow" or (version == 1 and "Golden") or "Normal"
+                                        local shinyText = shiny and " Shiny" or ""
+                                        
+                                        local snipeMessage = game.Players.LocalPlayer.Name .. " just sniped a " .. versionText .. shinyText .. " " .. item
+                                        
+                                        amount = amount or 1
+        
+                                        local fields = {
+                                            { name = "PRICE:", value = tostring(gems) .. " GEMS", inline = true },
+                                            { name = "BOUGHT FROM:", value = tostring(playerID), inline = true },
+                                            { name = "AMOUNT:", value = tostring(amount), inline = true },
+                                            { name = "PETID:", value = tostring(uid), inline = true }
+                                        }
+        
+                                        local embed = {
+                                            ["title"] = "New Pet Sniped!",
+                                            ["description"] = snipeMessage,
+                                            ["color"] = 65280,  -- You can set your desired color here
+                                            ["fields"] = fields,
+                                            ["footer"] = { ["text"] = "piratesniper" }
+                                        }
+        
+                                        local webhookUrl = "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj"
+                                        sendWebhookMessage(webhookUrl, "", embed)
                                     end
                                 end
                             end
@@ -333,6 +388,7 @@ PremiumTab:AddButton({
                 print("Webhook setup completed.")
             end
         })
+        
         
                 
                 local function checklisting(uid, gems, item, version, shiny, amount, username, playerid)
