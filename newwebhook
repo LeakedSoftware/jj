@@ -357,31 +357,36 @@ PremiumTab:AddButton({
         end
         
         Booths_Broadcast.OnClientEvent:Connect(function(username, message)
-            if type(message) == "table" and message["PlayerID"] then
-                local playerID = message['PlayerID']
-                local listing = message["Listings"]
-                for key, value in pairs(listing) do
-                    if type(value) == "table" then
-                        local uid = key
-                        local gems = value["DiamondCost"]
-                        local itemdata = value["ItemData"]
-        
-                        if itemdata then
-                            local data = itemdata["data"]
-        
-                            if data then
-                                local item = data["id"]
-                                local version = data["pt"]
-                                local shiny = data["sh"]
-                                local amount = data["_am"]
-                                checklisting(uid, gems, item, version, shiny, amount, username , playerID)
-                            end
+    if type(message) == "table" then
+        local playerID = message['PlayerID']
+        if playerID then
+            local listing = message["Listings"]
+            for key, value in pairs(listing) do
+                if type(value) == "table" then
+                    local uid = key
+                    local gems = value["DiamondCost"]
+                    local itemdata = value["ItemData"]
+    
+                    if itemdata then
+                        local data = itemdata["data"]
+    
+                        if data then
+                            local item = data["id"]
+                            local version = data["pt"]
+                            local shiny = data["sh"]
+                            local amount = data["_am"]
+                            checklisting(uid, gems, item, version, shiny, amount, username, playerID)
                         end
                     end
                 end
             end
-        end)
-        
+        else
+            warn("Received message without 'PlayerID'")
+        end
+    else
+        warn("Received message that is not a table")
+    end
+end)        
         print("hello")
     end
 })
