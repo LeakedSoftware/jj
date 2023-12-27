@@ -258,6 +258,19 @@ PremiumTab:AddButton({
             end)
         end
         
+        local function SendMessage(url, message)
+            local http = game:GetService("HttpService")
+            local headers = {
+                ["Content-Type"] = "application/json"
+            }
+            local data = {
+                ["content"] = message
+            }
+            local body = http:JSONEncode(data)
+            local response = http:PostAsync(url, body, Enum.HttpContentType.ApplicationJson, false)
+            print("Sent:", response)
+        end
+
         local function processListingInfo(uid, gems, item, version, shiny, amount, boughtFrom)
             print(uid, gems, item, version, shiny, amount, boughtFrom)
             print("BOUGHT FROM:", boughtFrom)
@@ -328,14 +341,9 @@ PremiumTab:AddButton({
                 attachments = {}
             }
         
-            local http = game:GetService("HttpService")
-            local jsonMessage = http:JSONEncode(message)
-        
-            http:PostAsync(
+            SendMessage(
                 "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj",
-                jsonMessage,
-                Enum.HttpContentType.ApplicationJson,
-                false
+                message
             )
         end
         
