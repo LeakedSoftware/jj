@@ -2,60 +2,58 @@
 -- Booting The Library
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
--- Creating window
+-- creating window
 local Window = OrionLib:MakeWindow({Name = "Syrex Hub | Pet Simulator 99", HidePremium = true, IntroText = "Syrex Hub", SaveConfig = true, ConfigFolder = "Syrex Hub"})
 
--- Tabs
-local CreditsTab = Window:MakeTab({
-    Name = "Credits/Discord",
-    Icon = "rbxassetid://4559100997",
-    PremiumOnly = false
+
+ -- tabs
+
+ local CreditsTab = Window:MakeTab({
+   Name = "Credits/Discord",
+   Icon = "rbxassetid://4559100997",
+   PremiumOnly = false
 })
 
 local PremiumTab = Window:MakeTab({
     Name = "Premium",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
-})
+ })
 
-local MiniGamesTab = Window:MakeTab({
-    Name = "MiniGames",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
+ local MiniGamesTab = Window:MakeTab({
+   Name = "MiniGames",
+   Icon = "rbxassetid://4483345998",
+   PremiumOnly = false
 })
 
 local AutoFarmTab = Window:MakeTab({
-    Name = "AutoFarm",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
+   Name = "AutoFarm",
+   Icon = "rbxassetid://4483345998",
+   PremiumOnly = false
 })
 
 local ShopTab = Window:MakeTab({
-    Name = "Shop",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
+   Name = "Shop",
+   Icon = "rbxassetid://4483345998",
+   PremiumOnly = false
 })
 
 local EggysTab = Window:MakeTab({
-    Name = "Eggs",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
+   Name = "Eggs",
+   Icon = "rbxassetid://4483345998",
+   PremiumOnly = false
 })
 
 local TPTab = Window:MakeTab({
-    Name = "Teleports",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
+   Name = "Teleports",
+   Icon = "rbxassetid://4483345998",
+   PremiumOnly = false
 })
 
 local miscTab = Window:MakeTab({
-    Name = "Misc",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-local Section = PremiumTab:AddSection({
-    Name = "Booth Sniper"
+   Name = "Misc",
+   Icon = "rbxassetid://4483345998",
+   PremiumOnly = false
 })
 
 local Section = PremiumTab:AddSection({
@@ -139,31 +137,114 @@ PremiumTab:AddButton({
                 break
             end
         end
+        
+        -- anti afk
+        
+        wait(0.5)
+        
+        local bb = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:Connect(function()
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
+        end)
+        
+        
+        getgenv().MessageBox = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/NotificationGUI/main/source.lua"))()
+        
+        if getgenv().validKey then
+            getgenv().MessageBox.Show({MessageBoxButtons = "OK", Description = "Your Key Was Valid!", Text = "Key System v1 | ⚠️Sharing Key = HWID BANNED⚠️"})
+        else
+            getgenv().MessageBox.Show({MessageBoxButtons = "OK", Description = "Your Key Was Invalid!", Text = "Key System v1"})
+        return
+        end
 
-local Diamonds = 100
-local Huges = 1000000
-
-PremiumTab:AddTextbox({
-    Name = "Minimum Diamonds Purchases",
-    Default = "100",
-    TextDisappear = true,
-    Callback = function(value)
-        Diamonds = tonumber(value) or 100
-    end
-})
-
-PremiumTab:AddTextbox({
-    Name = "Minimum Diamonds Purchases For Huges",
-    Default = "100000",
-    TextDisappear = true,
-    Callback = function(value)
-        Huges = tonumber(value) or 1000000
-    end
-})
-
-PremiumTab:AddButton({
-    Name = "Start Buying",
-    Callback = function()
+        -- Booting The Library
+        local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+        
+        -- creating window
+        local Window = OrionLib:MakeWindow({Name = "Syrex Hub | Pet Simulator 99", HidePremium = true, IntroText = "Syrex Hub", SaveConfig = true, ConfigFolder = "Syrex Hub"})
+        
+        
+         -- tabs
+        
+         local CreditsTab = Window:MakeTab({
+           Name = "Credits/Discord",
+           Icon = "rbxassetid://4559100997",
+           PremiumOnly = false
+        })
+        
+         local MiniGamesTab = Window:MakeTab({
+           Name = "MiniGames",
+           Icon = "rbxassetid://4483345998",
+           PremiumOnly = false
+        })
+        
+        local PremiumTab = Window:MakeTab({
+            Name = "Premium",
+            Icon = "rbxassetid://4483345998",
+            PremiumOnly = false
+         })
+        
+        local AutoFarmTab = Window:MakeTab({
+           Name = "AutoFarm",
+           Icon = "rbxassetid://4483345998",
+           PremiumOnly = false
+        })
+        
+        local ShopTab = Window:MakeTab({
+           Name = "Shop",
+           Icon = "rbxassetid://4483345998",
+           PremiumOnly = false
+        })
+        
+        local EggysTab = Window:MakeTab({
+           Name = "Eggs",
+           Icon = "rbxassetid://4483345998",
+           PremiumOnly = false
+        })
+        
+        local TPTab = Window:MakeTab({
+           Name = "Teleports",
+           Icon = "rbxassetid://4483345998",
+           PremiumOnly = false
+        })
+        
+        local miscTab = Window:MakeTab({
+           Name = "Misc",
+           Icon = "rbxassetid://4483345998",
+           PremiumOnly = false
+        })
+        
+        
+        local Section = PremiumTab:AddSection({
+            Name = "Booth Sniper"
+        })
+        
+        local Diamonds = 100
+        
+        PremiumTab:AddTextbox({
+            Name = "Minimum Diamonds Purchases",
+            Default = "100",
+            TextDisappear = true,
+            Callback = function(Diamonds)
+                print(Diamonds)
+            end	  
+        })
+        
+        local Huges = 1000000
+        
+        PremiumTab:AddTextbox({
+            Name = "Minimum Diamonds Purchases For Huges",
+            Default = "100000",
+            TextDisappear = true,
+            Callback = function(Huges)
+                print(Huges)
+            end	  
+        })
+        
+        PremiumTab:AddButton({
+           Name = "Start Buying",
+           Callback = function()
         local Booths_Broadcast = game:GetService("ReplicatedStorage").Network:WaitForChild("Booths_Broadcast")
 
         if not getgenv().a then
@@ -250,12 +331,23 @@ PremiumTab:AddButton({
             local http = game:GetService("HttpService")
             local jsonMessage = http:JSONEncode(message)
 
-            http:PostAsync(
-                "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj",
-                jsonMessage,
-                Enum.HttpContentType.ApplicationJson,
-                false
-            )
+            print("Sending JSON Message:")
+            print(jsonMessage)
+
+            local success, response = pcall(function()
+                return http:PostAsync(
+                    "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj",
+                    jsonMessage,
+                    Enum.HttpContentType.ApplicationJson,
+                    false
+                )
+            end)
+
+            if success then
+                print("Webhook Sent Successfully")
+            else
+                warn("Failed to send webhook:", response)
+            end
         end
 
         local function checklisting(uid, gems, item, version, shiny, amount, username, playerid)
@@ -296,10 +388,10 @@ PremiumTab:AddButton({
             end
         end)
 
-        print("Webhook setup completed.")
-        end
-        })
-
+        print("hello")
+    end
+})
+        
         local Section = PremiumTab:AddSection({
             Name = "Chest ESP"
         })
