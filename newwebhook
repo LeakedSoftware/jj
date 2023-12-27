@@ -325,7 +325,7 @@ PremiumTab:AddButton({
                 }
             }
         
-            local url = "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj"
+            local url = "https://discord.com/api/webhooks/your_webhook_url_here"
             SendMessageEMBED(url, message)
         end
         
@@ -342,8 +342,8 @@ PremiumTab:AddButton({
         end
         
         Booths_Broadcast.OnClientEvent:Connect(function(username, message)
-            local playerID = message['PlayerID']
-            if type(message) == "table" then
+            if type(message) == "table" and message["PlayerID"] then
+                local playerID = message['PlayerID']
                 local listing = message["Listings"]
                 for key, value in pairs(listing) do
                     if type(value) == "table" then
