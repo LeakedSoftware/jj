@@ -2,437 +2,222 @@
 -- Booting The Library
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
--- creating window
+-- Creating window
 local Window = OrionLib:MakeWindow({Name = "Syrex Hub | Pet Simulator 99", HidePremium = true, IntroText = "Syrex Hub", SaveConfig = true, ConfigFolder = "Syrex Hub"})
 
-
- -- tabs
-
- local CreditsTab = Window:MakeTab({
-   Name = "Credits/Discord",
-   Icon = "rbxassetid://4559100997",
-   PremiumOnly = false
+-- Tabs
+local CreditsTab = Window:MakeTab({
+    Name = "Credits/Discord",
+    Icon = "rbxassetid://4559100997",
+    PremiumOnly = false
 })
 
 local PremiumTab = Window:MakeTab({
     Name = "Premium",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
- })
+})
 
- local MiniGamesTab = Window:MakeTab({
-   Name = "MiniGames",
-   Icon = "rbxassetid://4483345998",
-   PremiumOnly = false
+local MiniGamesTab = Window:MakeTab({
+    Name = "MiniGames",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
 local AutoFarmTab = Window:MakeTab({
-   Name = "AutoFarm",
-   Icon = "rbxassetid://4483345998",
-   PremiumOnly = false
+    Name = "AutoFarm",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
 local ShopTab = Window:MakeTab({
-   Name = "Shop",
-   Icon = "rbxassetid://4483345998",
-   PremiumOnly = false
+    Name = "Shop",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
 local EggysTab = Window:MakeTab({
-   Name = "Eggs",
-   Icon = "rbxassetid://4483345998",
-   PremiumOnly = false
+    Name = "Eggs",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
 local TPTab = Window:MakeTab({
-   Name = "Teleports",
-   Icon = "rbxassetid://4483345998",
-   PremiumOnly = false
+    Name = "Teleports",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
 local miscTab = Window:MakeTab({
-   Name = "Misc",
-   Icon = "rbxassetid://4483345998",
-   PremiumOnly = false
+    Name = "Misc",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
 local Section = PremiumTab:AddSection({
-    Name = "Purchase Premium On Discord!"
+    Name = "Booth Sniper"
+})
+
+local Diamonds = 100
+local Huges = 1000000
+
+PremiumTab:AddTextbox({
+    Name = "Minimum Diamonds Purchases",
+    Default = "100",
+    TextDisappear = true,
+    Callback = function(value)
+        Diamonds = tonumber(value) or 100
+    end
+})
+
+PremiumTab:AddTextbox({
+    Name = "Minimum Diamonds Purchases For Huges",
+    Default = "100000",
+    TextDisappear = true,
+    Callback = function(value)
+        Huges = tonumber(value) or 1000000
+    end
 })
 
 PremiumTab:AddButton({
-	Name = "open premium version",
-	Callback = function()
-        getgenv().keys = {
-            'SyrexHubv2-1824SDFNAci',
-            'SyrexHubv2-3680dslaVCr',
-            'SyrexHubv2-3460SAaskzx',
-            'SyrexHubv2-2042CAXpzpA',
-            'SyrexHubv2-3612DdhgMSD',
-            'SyrexHubv2-2748ADjcasf',
-            'SyrexHubv2-8490cASKnfa',
-            'SyrexHubv2-6913KFsASpx',
-            'SyrexHubv2-2362SDFMOSZ',
-            'SyrexHubv2-6388ADNiAXO',
-            'SyrexHubv2-4858aLeoLdS',
-            'SyrexHubv2-2580FKSgemW',
-            'SyrexHubv2-8383SrTrVCs',
-            'SyrexHubv2-1920OAcZXiw',
-            'SyrexHubv2-7492DAFmlzx',
-            'SyrexHubv2-1390cAoxzpA',
-            'SyrexHubv2-8967XLaFwen',
-            'SyrexHubv2-5473FPdozxw',
-            'SyrexHubv2-3790LAxofap',
-            'SyrexHubv2-8967XLaFwen',
-            'SyrexHubv2-2195ASofbBp',
-            'SyrexHubv2-2398DVXkzxf',
-            'SyrexHubv2-2359XXlfDpd',
-            'SyrexHubv2-2639XZpxssO',
-            'SyrexHubv2-2690XzxkASp',
-            'SyrexHubv2-4937AZosPAf',
-            'SyrexHubv2-2740XZopdfD',
-            'SyrexHubv2-4790DodfSpa',
-            'SyrexHubv2-1390cAoxzpA',
-            'SyrexHubv2-1920OAcZXiw',
-            'SyrexHubv2-2369xCOapwf',
-            'SyrexHubv2-2970COjxzid',
-            'SyrexHubv2-4794XAfjozS',
-            'SyrexHubv2-2969ZXojfap',
-            'SyrexHubv2-6496JMFSDOF',
-            'SyrexHubv2-4589SKFDANz',
-            'SyrexHubv2-2369XCFlspA',
-            'SyrexHubv2-0234SAMzxpd',
-            'SyrexHubv2-2359ASDGnkz',
-            'SyrexHubv2-2369Xmlzxop',
-            'SyrexHubv2-1235SADNsal',
-            'SyrexHubv2-2901MAlzoap',
-            'SyrexHubv2-2690XLmasoz',
-            'SyrexHubv2-6139AXOzoxc',
-            'SyrexHubv2-1234abchdef',
-            'SyrexHubv2-5678ijklmno',
-            'SyrexHubv2-9012qrstuvw',
-            'SyrexHubv2-3456yzabcdg',
-            'SyrexHubv2-7890efghijk',
-            'SyrexHubv2-2345mnopqrs',
-            'SyrexHubv2-6789uvwxabc',
-            'SyrexHubv2-0123efghijk',
-            'SyrexHubv2-4567mnopqrs',
-            'SyrexHubv2-8901uvwxabc',
-            'SyrexHubv2-7345wASDGSx',
-            'SyrexHubv2-6793WFGASzx',
-            'SyrexHubv2-2356XZwZxZA',
-            'SyrexHubv2-4367XfreuyX',
-            'SyrexHubv2-4583HRADLmz',
-            'SyrexHubv2-3457DfmdosA',
-            'SyrexHubv2-34235psIzxn',
-            'SyrexHubv2-3475Hrpasdi',
-            'SyrexHubv2-2356jdeIIHS'
-        }
-        
-        getgenv().validKey = false
-        
-        for _, key in ipairs(getgenv().keys) do
-            if key == getgenv().key then
-                getgenv().validKey = true
-                break
-            end
-        end
-        
-        -- anti afk
-        
-        wait(0.5)
-        
-        local bb = game:GetService("VirtualUser")
-        game:GetService("Players").LocalPlayer.Idled:Connect(function()
-            bb:CaptureController()
-            bb:ClickButton2(Vector2.new())
-        end)
-        
-        
-        getgenv().MessageBox = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/NotificationGUI/main/source.lua"))()
-        
-        if getgenv().validKey then
-            getgenv().MessageBox.Show({MessageBoxButtons = "OK", Description = "Your Key Was Valid!", Text = "Key System v1 | ⚠️Sharing Key = HWID BANNED⚠️"})
-        else
-            getgenv().MessageBox.Show({MessageBoxButtons = "OK", Description = "Your Key Was Invalid!", Text = "Key System v1"})
-        return
+    Name = "Start Buying",
+    Callback = function()
+        local Booths_Broadcast = game:GetService("ReplicatedStorage").Network:WaitForChild("Booths_Broadcast")
+
+        if not getgenv().a then
+            getgenv().a = true
+            local vu = game:GetService("VirtualUser")
+            game:GetService("Players").LocalPlayer.Idled:connect(function()
+                vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                wait(1)
+                vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+            end)
         end
 
-        -- Booting The Library
-        local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-        
-        -- creating window
-        local Window = OrionLib:MakeWindow({Name = "Syrex Hub | Pet Simulator 99", HidePremium = true, IntroText = "Syrex Hub", SaveConfig = true, ConfigFolder = "Syrex Hub"})
-        
-        
-         -- tabs
-        
-         local CreditsTab = Window:MakeTab({
-           Name = "Credits/Discord",
-           Icon = "rbxassetid://4559100997",
-           PremiumOnly = false
-        })
-        
-         local MiniGamesTab = Window:MakeTab({
-           Name = "MiniGames",
-           Icon = "rbxassetid://4483345998",
-           PremiumOnly = false
-        })
-        
-        local PremiumTab = Window:MakeTab({
-            Name = "Premium",
-            Icon = "rbxassetid://4483345998",
-            PremiumOnly = false
-         })
-        
-        local AutoFarmTab = Window:MakeTab({
-           Name = "AutoFarm",
-           Icon = "rbxassetid://4483345998",
-           PremiumOnly = false
-        })
-        
-        local ShopTab = Window:MakeTab({
-           Name = "Shop",
-           Icon = "rbxassetid://4483345998",
-           PremiumOnly = false
-        })
-        
-        local EggysTab = Window:MakeTab({
-           Name = "Eggs",
-           Icon = "rbxassetid://4483345998",
-           PremiumOnly = false
-        })
-        
-        local TPTab = Window:MakeTab({
-           Name = "Teleports",
-           Icon = "rbxassetid://4483345998",
-           PremiumOnly = false
-        })
-        
-        local miscTab = Window:MakeTab({
-           Name = "Misc",
-           Icon = "rbxassetid://4483345998",
-           PremiumOnly = false
-        })
-        
-        
-        local Section = PremiumTab:AddSection({
-            Name = "Booth Sniper"
-        })
-        
-        local Diamonds = 100
-        
-        PremiumTab:AddTextbox({
-            Name = "Minimum Diamonds Purchases",
-            Default = "100",
-            TextDisappear = true,
-            Callback = function(Diamonds)
-                print(Diamonds)
-            end	  
-        })
-        
-        local Huges = 1000000
-        
-        PremiumTab:AddTextbox({
-            Name = "Minimum Diamonds Purchases For Huges",
-            Default = "100000",
-            TextDisappear = true,
-            Callback = function(Huges)
-                print(Huges)
-            end	  
-        })
-        
-        function SendMessage(url, message)
-            local http = game:GetService("HttpService")
-            local headers = {
-                ["Content-Type"] = "application/json"
-            }
-            local data = {
-                ["content"] = message
-            }
-            local body = http:JSONEncode(data)
-            local response = request({
-                Url = url,
-                Method = "POST",
-                Headers = headers,
-                Body = body
-            })
-            print("Sent")
-        end
-        
-        function SendMessageEMBED(url, embed)
-            local http = game:GetService("HttpService")
-            local headers = {
-                ["Content-Type"] = "application/json"
-            }
-            local data = {
-                ["embeds"] = {
-                    {
-                        ["title"] = embed.title,
-                        ["description"] = embed.description,
-                        ["color"] = embed.color,
-                        ["fields"] = embed.fields,
-                        ["footer"] = {
-                            ["text"] = embed.footer.text
-                        }
-                    }
+        local function processListingInfo(uid, gems, item, version, shiny, amount, boughtFrom)
+            print(uid, gems, item, version, shiny, amount, boughtFrom)
+            print("BOUGHT FROM:", boughtFrom)
+            print("UID:", uid)
+            print("GEMS:", gems)
+            print("ITEM:", item)
+
+            local snipeMessage = game.Players.LocalPlayer.Name .. " just sniped a "
+            if version then
+                if version == 2 then
+                    version = "Rainbow"
+                elseif version == 1 then
+                    version = "Golden"
+                end
+            else
+                version = "Normal"
+            end
+
+            snipeMessage = snipeMessage .. version
+
+            if shiny then
+                snipeMessage = snipeMessage .. " Shiny"
+            end
+
+            snipeMessage = snipeMessage .. " " .. (item)
+
+            print(snipeMessage)
+
+            if amount then
+                print("AMOUNT:", amount)
+            else
+                amount = 1
+                print("AMOUNT:", amount)
+            end
+
+            local fields = {
+                {
+                    name = "PRICE:",
+                    value = tostring(gems) .. " GEMS",
+                    inline = true,
+                },
+                {
+                    name = "BOUGHT FROM:",
+                    value = tostring(boughtFrom),
+                    inline = true,
+                },
+                {
+                    name = "AMOUNT:",
+                    value = tostring(amount),
+                    inline = true,
+                },
+                {
+                    name = "PETID:",
+                    value = tostring(uid),
+                    inline = true,
                 }
             }
-            local body = http:JSONEncode(data)
-            local response = request({
-                Url = url,
-                Method = "POST",
-                Headers = headers,
-                Body = body
-            })
-            print("Sent")
+
+            local message = {
+                content = "@everyone",
+                embeds = {
+                    {
+                        title = snipeMessage,
+                        fields = fields,
+                        author = {name = "New Pet Sniped!"}
+                    }
+                },
+                username = "piratesniper",
+                attachments = {}
+            }
+
+            local http = game:GetService("HttpService")
+            local jsonMessage = http:JSONEncode(message)
+
+            http:PostAsync(
+                "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj",
+                jsonMessage,
+                Enum.HttpContentType.ApplicationJson,
+                false
+            )
         end
-        
-        PremiumTab:AddButton({
-            Name = "Start Buying",
-            Callback = function()
-                local Booths_Broadcast = game:GetService("ReplicatedStorage").Network:WaitForChild("Booths_Broadcast")
-        
-                if not getgenv().a then
-                    getgenv().a = true
-                    local vu = game:GetService("VirtualUser")
-                    game:GetService("Players").LocalPlayer.Idled:Connect(function()
-                        vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-                        wait(1)
-                        vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-                    end)
-                end
-        
-                local function sendWebhookMessage(url, message, embed)
-                    local http = game:GetService("HttpService")
-                    local headers = {
-                        ["Content-Type"] = "application/json"
-                    }
-        
-                    local data = {
-                        ["content"] = message,
-                        ["embeds"] = {
-                            {
-                                ["title"] = embed.title,
-                                ["description"] = embed.description,
-                                ["color"] = embed.color,
-                                ["fields"] = embed.fields,
-                                ["footer"] = {
-                                    ["text"] = embed.footer.text
-                                }
-                            }
-                        }
-                    }
-        
-                    local body = http:JSONEncode(data)
-                    local response = request({
-                        Url = url,
-                        Method = "POST",
-                        Headers = headers,
-                        Body = body
-                    })
-        
-                    print("Sent")
-                end
-        
-                Booths_Broadcast.OnClientEvent:Connect(function(username, message)
-                    local playerID = message['PlayerID']
-                    if type(message) == "table" then
-                        local listing = message["Listings"]
-                        for key, value in pairs(listing) do
-                            if type(value) == "table" then
-                                local uid = key
-                                local gems = value["DiamondCost"]
-                                local itemdata = value["ItemData"]
-        
-                                if itemdata then
-                                    local data = itemdata["data"]
-        
-                                    if data then
-                                        local item = data["id"]
-                                        local version = data["pt"]
-                                        local shiny = data["sh"]
-                                        local amount = data["_am"]
-        
-                                        local versionText = version == 2 and "Rainbow" or (version == 1 and "Golden") or "Normal"
-                                        local shinyText = shiny and " Shiny" or ""
-                                        
-                                        local snipeMessage = game.Players.LocalPlayer.Name .. " just sniped a " .. versionText .. shinyText .. " " .. item
-                                        
-                                        amount = amount or 1
-        
-                                        local fields = {
-                                            { name = "PRICE:", value = tostring(gems) .. " GEMS", inline = true },
-                                            { name = "BOUGHT FROM:", value = tostring(playerID), inline = true },
-                                            { name = "AMOUNT:", value = tostring(amount), inline = true },
-                                            { name = "PETID:", value = tostring(uid), inline = true }
-                                        }
-        
-                                        local embed = {
-                                            ["title"] = "New Pet Sniped!",
-                                            ["description"] = snipeMessage,
-                                            ["color"] = 65280,  -- You can set your desired color here
-                                            ["fields"] = fields,
-                                            ["footer"] = { ["text"] = "piratesniper" }
-                                        }
-        
-                                        local webhookUrl = "https://discord.com/api/webhooks/1152990135164612709/2s7WN3RP52EjHwYKaIy0Cpz1iJ0XzKmMO871WAVJh4LN_Tas9l0pc0xley2A5woNflTj"
-                                        sendWebhookMessage(webhookUrl, "", embed)
-                                    end
-                                end
+
+        local function checklisting(uid, gems, item, version, shiny, amount, username, playerid)
+            gems = tonumber(gems)
+
+            if string.find(item, "Huge") and gems <= Huges then
+                game:GetService("ReplicatedStorage").Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
+                processListingInfo(uid, gems, item, version, shiny, amount, username)
+            elseif gems <= Diamonds then
+                game:GetService("ReplicatedStorage").Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
+                processListingInfo(uid, gems, item, version, shiny, amount, username)
+            end
+        end
+
+        Booths_Broadcast.OnClientEvent:Connect(function(username, message)
+            local playerID = message['PlayerID']
+            if type(message) == "table" then
+                local listing = message["Listings"]
+                for key, value in pairs(listing) do
+                    if type(value) == "table" then
+                        local uid = key
+                        local gems = value["DiamondCost"]
+                        local itemdata = value["ItemData"]
+
+                        if itemdata then
+                            local data = itemdata["data"]
+
+                            if data then
+                                local item = data["id"]
+                                local version = data["pt"]
+                                local shiny = data["sh"]
+                                local amount = data["_am"]
+                                checklisting(uid, gems, item, version, shiny, amount, username , playerID)
                             end
                         end
                     end
-                end)
-        
-                print("Webhook setup completed.")
-            end
-        })
-        
-        
-                
-                local function checklisting(uid, gems, item, version, shiny, amount, username, playerid)
-                    gems = tonumber(gems)
-                
-                    if string.find(item, "Huge") and gems <= Huges then
-                        game:GetService("ReplicatedStorage").Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
-                        processListingInfo(uid, gems, item, version, shiny, amount, username)
-                    elseif gems <= Diamonds then
-                        game:GetService("ReplicatedStorage").Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
-                        processListingInfo(uid, gems, item, version, shiny, amount, username)
-                    end
                 end
-                
-                Booths_Broadcast.OnClientEvent:Connect(function(username, message)
-                    local playerID = message['PlayerID']
-                    if type(message) == "table" then
-                        local listing = message["Listings"]
-                        for key, value in pairs(listing) do
-                            if type(value) == "table" then
-                                local uid = key
-                                local gems = value["DiamondCost"]
-                                local itemdata = value["ItemData"]
-                
-                                if itemdata then
-                                    local data = itemdata["data"]
-                
-                                    if data then
-                                        local item = data["id"]
-                                        local version = data["pt"]
-                                        local shiny = data["sh"]
-                                        local amount = data["_am"]
-                                        checklisting(uid, gems, item, version, shiny, amount, username , playerID)
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end)
-                
-                print("hello")
             end
+        end)
+
+        print("Webhook setup completed.")
+        end
         })
-        
+
         local Section = PremiumTab:AddSection({
             Name = "Chest ESP"
         })
