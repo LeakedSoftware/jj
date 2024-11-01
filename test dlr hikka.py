@@ -14,27 +14,28 @@ class ReplyDownloaderMod1(loader.Module):
         name = utils.get_args_raw(message)
         reply = await message.get_reply_message()
         if reply:
+            # Отправка текста, если он присутствует в ответе
             if reply.text:
-                # Если это текст, сохраняем его в файл
                 text = reply.text
-                fname = f'{name or message.id+reply.id}.txt'
-                with open(fname, 'w') as file:
-                    file.write(text)
+                text_fname = f'{name or message.id+reply.id}_text.txt'
+                with open(text_fname, 'w') as text_file:
+                    text_file.write(text)
                 
-                # Отправляем файл в "Избранное"
-                await message.client.send_file('me', fname)
-                os.remove(fname)  # Удаляем файл после отправки
-                await message.edit('Текст успешно отправлен в Избранное.')
-            else:
-                # Если это файл, скачиваем и отправляем
+                # Отправляем файл с текстом в "Избранное"
+                await message.client.send_file('me', text_fname)
+                os.remove(text_fname)  # Удаляем текстовый файл после отправки
+
+            # Отправка файла, если он присутствует в ответе
+            if reply.file:
                 ext = reply.file.ext
-                fname = f'{name or message.id+reply.id}{ext}'
-                await message.client.download_media(reply, fname)
+                file_fname = f'{name or message.id+reply.id}{ext}'
+                await message.client.download_media(reply, file_fname)
                 
-                # Отправляем файл в "Избранное"
-                await message.client.send_file('me', fname)
-                os.remove(fname)  # Удаляем файл после отправки
-                await message.edit('Файл успешно отправлен в Избранное.')
+                # Отправляем скачанный файл в "Избранное"
+                await message.client.send_file('me', file_fname)
+                os.remove(file_fname)  # Удаляем скачанный файл после отправки
+            
+            await message.edit('Содержимое успешно отправлено в Избранное.')
         else:
             return await message.edit('Нет реплая.')
 
