@@ -28,17 +28,20 @@ class ReplyDownloaderMod1(loader.Module):
                 os.remove(text_fname)  # Удаляем текстовый файл после отправки
                 sent_anything = True
 
-            # Отправка файла, если он присутствует в ответе
-            if reply.file:
-                ext = reply.file.ext or ""  # Получаем расширение, если оно есть
-                file_fname = f'{name or message.id+reply.id}{ext}'
-                await message.client.download_media(reply, file_fname)
-                
-                # Отправляем скачанный файл в "Избранное"
-                await message.client.send_file('me', file_fname)
-                os.remove(file_fname)  # Удаляем скачанный файл после отправки
-                sent_anything = True
-            
+            # Отправка всех файлов, если они присутствуют в ответе
+            if reply.media:
+                # Получаем список всех файлов
+                media_files = await message.client.get_media(reply)
+                for index, media in enumerate(media_files):
+                    ext = media.file.ext or ""  # Получаем расширение, если оно есть
+                    file_fname = f'{name or message.id+reply.id}_{index}{ext}'
+                    await message.client.download_media(media, file_fname)
+                    
+                    # Отправляем скачанный файл в "Избранное"
+                    await message.client.send_file('me', file_fname)
+                    os.remove(file_fname)  # Удаляем скачанный файл после отправки
+                    sent_anything = True
+
             if sent_anything:
                 await message.edit('Содержимое успешно отправлено в Избранное.')
             else:
