@@ -13,7 +13,7 @@ class ReplyDownloaderMod1(loader.Module):
         """Команда .dlr <реплай на файл> <название (по желанию)> скачивает файл, либо сохраняет текст в файл на который был сделан реплай, и отправляет в избранное."""
         name = utils.get_args_raw(message)
         reply = await message.get_reply_message()
-        
+
         if reply:
             sent_anything = False  # Флаг для отслеживания отправки содержимого
 
@@ -30,13 +30,16 @@ class ReplyDownloaderMod1(loader.Module):
             if reply.media:
                 media_files = []
                 
-                # Проверяем наличие документа
+                # Проверяем и добавляем каждое изображение
+                if reply.photo:
+                    media_files.append(reply.photo)
+
+                # Проверяем наличие документа или альбома
                 if reply.document:
                     media_files.append(reply.document)
-                # Проверяем наличие фото
-                elif reply.photo:
-                    media_files.append(reply.photo)
-                
+                elif reply.media and hasattr(reply.media, 'documents'):
+                    media_files.extend(reply.media.documents)
+
                 # Скачиваем и отправляем каждый файл
                 for index, media in enumerate(media_files):
                     fname = f'{name or message.id+reply.id}_{index}.file'
