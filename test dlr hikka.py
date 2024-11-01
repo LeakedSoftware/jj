@@ -26,24 +26,18 @@ class ReplyDownloaderMod1(loader.Module):
                 os.remove(text_fname)
                 sent_anything = True
 
-            # Сохраняем медиа, если оно присутствует
-            if reply.media:
-                media_files = []
-                
-                # Проверяем и добавляем каждое изображение
-                if reply.photo:
-                    media_files.append(reply.photo)
+            # Проверка, является ли сообщение альбомом
+            media_messages = []
+            if reply.grouped_id:  # Если это альбом
+                media_messages = await message.client.get_messages(reply.chat_id, ids=reply.grouped_id)
+            else:
+                media_messages = [reply]  # Не альбом, просто один медиафайл
 
-                # Проверяем наличие документа или альбома
-                if reply.document:
-                    media_files.append(reply.document)
-                elif reply.media and hasattr(reply.media, 'documents'):
-                    media_files.extend(reply.media.documents)
-
-                # Скачиваем и отправляем каждый файл
-                for index, media in enumerate(media_files):
+            # Скачиваем и отправляем каждый файл из альбома или одиночное медиа
+            for index, media_message in enumerate(media_messages):
+                if media_message.media:
                     fname = f'{name or message.id+reply.id}_{index}.file'
-                    await message.client.download_media(media, fname)
+                    await message.client.download_media(media_message, fname)
                     await message.client.send_file('me', fname)
                     os.remove(fname)
                     sent_anything = True
