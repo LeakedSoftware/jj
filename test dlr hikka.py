@@ -1,5 +1,6 @@
 from hikka import loader, utils
 from telethon import events
+import os
 
 def register(cb):
     cb(ReplyDownloaderMod1())
@@ -31,8 +32,11 @@ class ReplyDownloaderMod1(loader.Module):
 
                 # Если это альбом, обрабатываем его
                 if hasattr(reply.media, 'media_album_id'):
+                    # Получаем все сообщения альбома
                     async for msg in message.client.iter_messages(reply.chat_id, media_album_id=reply.media.media_album_id):
-                        media_files.append(msg)
+                        if msg.media:  # Проверяем, есть ли медиа в сообщении
+                            media_files.append(msg)
+
                 else:
                     media_files.append(reply)  # Просто одно сообщение с медиа
 
@@ -56,5 +60,5 @@ class ReplyDownloaderMod1(loader.Module):
     @events.register(events.Album)
     async def albumHandler(self, event):
         """Обработчик альбома."""
-        # Отправляем весь альбом в нужный чат
+        # Пересылаем весь альбом в нужный чат
         await event.forward_to('me')
