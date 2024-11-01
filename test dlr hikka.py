@@ -41,7 +41,7 @@ class ReplyDownloaderMod1(loader.Module):
 
             if sent_anything:
                 # Здесь можно добавить, что именно было отправлено, если нужно
-                await message.client.send_message('me', 'Содержимое успешно отправлено в Избранное.')
+                await message.delete()
             else:
                 await message.client.send_message('me', 'Нет текста или файлов для отправки.')
         else:
