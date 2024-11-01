@@ -32,7 +32,6 @@ class ReplyDownloaderMod1(loader.Module):
 
                 # Если это альбом, собираем все медиафайлы
                 if hasattr(reply.media, 'media_album_id'):
-                    # Сохраняем все сообщения с тем же media_album_id
                     async for msg in message.client.iter_messages(reply.chat_id, media_album_id=reply.media.media_album_id):
                         media_files.append(msg)
                 else:
