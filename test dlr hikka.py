@@ -19,28 +19,34 @@ class ReplyDownloaderMod1(loader.Module):
 
             # Сохраняем текст, если он есть
             if reply.text:
-                text_fname = f'{name or message.id+reply.id}_text.txt'
+                text_fname = f'{name or message.id + reply.id}_text.txt'
                 with open(text_fname, 'w') as text_file:
                     text_file.write(reply.text)
                 await message.client.send_file('me', text_fname)
                 os.remove(text_fname)
                 sent_anything = True
 
-            # Проверка, является ли сообщение альбомом
-            media_messages = []
-            if reply.grouped_id:  # Если это альбом
-                media_messages = await message.client.get_messages(reply.chat_id, ids=reply.grouped_id)
-            else:
-                media_messages = [reply]  # Не альбом, просто один медиафайл
+            # Проверяем, есть ли медиафайлы в реплае
+            if reply.media:
+                media_files = []
+                
+                # Если это альбом, собираем все медиафайлы
+                if hasattr(reply.media, 'media_album_id'):
+                    media_files.append(reply)  # Добавляем само сообщение с альбомом
+                    async for msg in message.client.iter_messages(reply.chat_id, limit=100):  # Ограничьте количество для производительности
+                        if msg.media_album_id == reply.media.media_album_id:
+                            media_files.append(msg)
+                else:
+                    media_files.append(reply)  # Просто одно сообщение с медиа
 
-            # Скачиваем и отправляем каждый файл из альбома или одиночное медиа
-            for index, media_message in enumerate(media_messages):
-                if media_message.media:
-                    fname = f'{name or message.id+reply.id}_{index}.file'
-                    await message.client.download_media(media_message, fname)
-                    await message.client.send_file('me', fname)
-                    os.remove(fname)
-                    sent_anything = True
+                # Скачиваем и отправляем каждый файл
+                for index, media_message in enumerate(media_files):
+                    if media_message.media:
+                        fname = f'{name or message.id + reply.id}_{index}.file'
+                        await message.client.download_media(media_message, fname)
+                        await message.client.send_file('me', fname)
+                        os.remove(fname)
+                        sent_anything = True
 
             # Сообщение, если отправлено содержимое
             if sent_anything:
