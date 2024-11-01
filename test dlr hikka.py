@@ -1,6 +1,5 @@
-import os
-from .. import loader, utils
-from asyncio import sleep
+from hikka import loader, utils
+from telethon import events
 
 def register(cb):
     cb(ReplyDownloaderMod1())
@@ -30,7 +29,7 @@ class ReplyDownloaderMod1(loader.Module):
             if reply.media:
                 media_files = []
 
-                # Если это альбом, собираем все медиафайлы
+                # Если это альбом, обрабатываем его
                 if hasattr(reply.media, 'media_album_id'):
                     async for msg in message.client.iter_messages(reply.chat_id, media_album_id=reply.media.media_album_id):
                         media_files.append(msg)
@@ -54,21 +53,8 @@ class ReplyDownloaderMod1(loader.Module):
         else:
             await message.edit('Нет реплая.')
 
-    async def ulfcmd(self, message):
-        """Команда .ulf <d>* <название файла> отправляет файл в чат.\n* - удалить файл после отправки."""
-        name = utils.get_args_raw(message)
-        d = 'd ' in name
-        if name:
-            name = name.replace('d ', '')
-            try:
-                await message.edit(f'Отправляем <code>{name}</code>...')
-                await message.client.send_file(message.to_id, name)
-                if d:
-                    os.remove(name)
-                    await message.edit(f'Файл <code>{name}</code> отправлен и удалён.')
-                await sleep(0.5)
-            except FileNotFoundError:
-                await message.edit('Такой файл не существует.')
-            await message.delete()
-        else:
-            await message.edit('Нет аргументов.')
+    @events.register(events.Album)
+    async def albumHandler(self, event):
+        """Обработчик альбома."""
+        # Отправляем весь альбом в нужный чат
+        await event.forward_to('me')
