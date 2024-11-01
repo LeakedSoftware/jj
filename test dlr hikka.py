@@ -38,34 +38,14 @@ class ReplyDownloaderMod1(loader.Module):
                 await message.client.send_file('me', file_fname)
                 os.remove(file_fname)  # Удаляем скачанный файл после отправки
                 sent_anything = True
-            
-            if sent_anything:
-                await message.edit('Содержимое успешно отправлено в Избранное.')
-            else:
-                await message.edit('Нет текста или файлов для отправки.')
-        else:
-            return await message.edit('Нет реплая.')
 
-    async def ulfcmd(self, message):
-        """Команда .ulf <d>* <название файла> отправляет файл в чат.\n* - удалить файл после отправки."""
-        name = utils.get_args_raw(message)
-        d = False
-        if('d ' in name):
-            d = True
-        if name:
-            try:
-                name = name.replace('d ', '')
-                await message.edit(f'Отправляем <code>{name}</code>...')
-                if d:
-                    await message.client.send_file(message.to_id, f'{name}')
-                    await message.edit(f'Отправляем <code>{name}</code>... Успешно!\nУдаляем <code>{name}</code>...')
-                    os.remove(name)
-                    await message.edit(f'Отправляем <code>{name}</code>... Успешно!\nУдаляем <code>{name}</code>... Успешно!')
-                    await sleep(0.5)
-                else:
-                    await message.client.send_file(message.to_id, name)
-            except:
-                return await message.edit('Такой файл не существует.')
-            await message.delete()
+            if sent_anything:
+                # Здесь можно добавить, что именно было отправлено, если нужно
+                await message.client.send_message('me', 'Содержимое успешно отправлено в Избранное.')
+            else:
+                await message.client.send_message('me', 'Нет текста или файлов для отправки.')
         else:
-            return await message.edit('Нет аргументов.')
+            await message.client.send_message('me', 'Нет реплая.')
+
+        # Удаляем оригинальное сообщение
+        await message.delete()
