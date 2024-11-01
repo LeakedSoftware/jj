@@ -13,63 +13,61 @@ class ReplyDownloaderMod1(loader.Module):
         """Команда .dlr <реплай на файл> <название (по желанию)> скачивает файл, либо сохраняет текст в файл на который был сделан реплай, и отправляет в избранное."""
         name = utils.get_args_raw(message)
         reply = await message.get_reply_message()
+        
         if reply:
             sent_anything = False  # Флаг для отслеживания отправки содержимого
 
-            # Отправка текста, если он присутствует в ответе
+            # Сохраняем текст, если он есть
             if reply.text:
-                text = reply.text
                 text_fname = f'{name or message.id+reply.id}_text.txt'
                 with open(text_fname, 'w') as text_file:
-                    text_file.write(text)
-                
-                # Отправляем файл с текстом в "Избранное"
+                    text_file.write(reply.text)
                 await message.client.send_file('me', text_fname)
-                os.remove(text_fname)  # Удаляем текстовый файл после отправки
+                os.remove(text_fname)
                 sent_anything = True
 
-            # Отправка файла, если он присутствует в ответе
+            # Сохраняем медиа, если оно присутствует
             if reply.media:
-                # Скачиваем и отправляем каждый файл в "Избранное"
-                file_count = 1
-                for media in reply.document if reply.document else [reply.media]:
-                    ext = media.ext or ""  # Получаем расширение, если оно есть
-                    file_fname = f'{name or message.id+reply.id}_{file_count}{ext}'
-                    await message.client.download_media(reply, file_fname)
-
-                    # Отправляем скачанный файл в "Избранное"
-                    await message.client.send_file('me', file_fname)
-                    os.remove(file_fname)  # Удаляем скачанный файл после отправки
+                media_files = []
+                
+                # Проверяем наличие документа
+                if reply.document:
+                    media_files.append(reply.document)
+                # Проверяем наличие фото
+                elif reply.photo:
+                    media_files.append(reply.photo)
+                
+                # Скачиваем и отправляем каждый файл
+                for index, media in enumerate(media_files):
+                    fname = f'{name or message.id+reply.id}_{index}.file'
+                    await message.client.download_media(media, fname)
+                    await message.client.send_file('me', fname)
+                    os.remove(fname)
                     sent_anything = True
-                    file_count += 1
 
+            # Сообщение, если отправлено содержимое
             if sent_anything:
                 await message.edit('Содержимое успешно отправлено в Избранное.')
             else:
                 await message.edit('Нет текста или файлов для отправки.')
         else:
-            return await message.edit('Нет реплая.')
+            await message.edit('Нет реплая.')
 
     async def ulfcmd(self, message):
         """Команда .ulf <d>* <название файла> отправляет файл в чат.\n* - удалить файл после отправки."""
         name = utils.get_args_raw(message)
-        d = False
-        if('d ' in name):
-            d = True
+        d = 'd ' in name
         if name:
+            name = name.replace('d ', '')
             try:
-                name = name.replace('d ', '')
                 await message.edit(f'Отправляем <code>{name}</code>...')
+                await message.client.send_file(message.to_id, name)
                 if d:
-                    await message.client.send_file(message.to_id, f'{name}')
-                    await message.edit(f'Отправляем <code>{name}</code>... Успешно!\nУдаляем <code>{name}</code>...')
                     os.remove(name)
-                    await message.edit(f'Отправляем <code>{name}</code>... Успешно!\nУдаляем <code>{name}</code>... Успешно!')
-                    await sleep(0.5)
-                else:
-                    await message.client.send_file(message.to_id, name)
-            except:
-                return await message.edit('Такой файл не существует.')
+                    await message.edit(f'Файл <code>{name}</code> отправлен и удалён.')
+                await sleep(0.5)
+            except FileNotFoundError:
+                await message.edit('Такой файл не существует.')
             await message.delete()
         else:
-            return await message.edit('Нет аргументов.')
+            await message.edit('Нет аргументов.')
