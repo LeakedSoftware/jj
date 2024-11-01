@@ -29,13 +29,12 @@ class ReplyDownloaderMod1(loader.Module):
             # Проверяем, есть ли медиафайлы в реплае
             if reply.media:
                 media_files = []
-                
+
                 # Если это альбом, собираем все медиафайлы
                 if hasattr(reply.media, 'media_album_id'):
-                    media_files.append(reply)  # Добавляем само сообщение с альбомом
-                    async for msg in message.client.iter_messages(reply.chat_id, limit=100):  # Ограничьте количество для производительности
-                        if msg.media_album_id == reply.media.media_album_id:
-                            media_files.append(msg)
+                    # Сохраняем все сообщения с тем же media_album_id
+                    async for msg in message.client.iter_messages(reply.chat_id, media_album_id=reply.media.media_album_id):
+                        media_files.append(msg)
                 else:
                     media_files.append(reply)  # Просто одно сообщение с медиа
 
