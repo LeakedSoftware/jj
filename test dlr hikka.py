@@ -32,10 +32,8 @@ class ReplyDownloaderMod1(loader.Module):
 
                 # Если это альбом, обрабатываем его
                 if hasattr(reply.media, 'media_album_id'):
-                    # Получаем все сообщения альбома
-                    async for msg in message.client.iter_messages(reply.chat_id, media_album_id=reply.media.media_album_id):
-                        if msg.media:  # Проверяем, есть ли медиа в сообщении
-                            media_files.append(msg)
+                    # Получаем все фотографии из альбома
+                    media_files = await message.client.get_messages(reply.chat_id, filter=events.filters.InputMessages.FilterPhotos, limit=None, max_id=reply.id)
 
                 else:
                     media_files.append(reply)  # Просто одно сообщение с медиа
